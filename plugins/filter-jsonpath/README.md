@@ -51,9 +51,32 @@ $..book[2]                     # Third book anywhere
 $..price                       # All prices in the document
 ```
 
+## Aggregate Functions
+
+This plugin includes custom quality-of-life aggregate functions that can be chained onto the end of JSONPath expressions to perform calculations on numeric arrays:
+
+- `.sum()` - Calculate the total of all values
+- `.min()` - Find the minimum value
+- `.max()` - Find the maximum value
+- `.count()` - Count the number of items
+- `.avg()` - Calculate the average
+
+### Aggregate Function Examples
+
+```
+$.store.book[*].price.sum()              # Total price of all books
+$.store.book[*].price.min()              # Cheapest book price
+$.store.book[*].price.max()              # Most expensive book price
+$.store.book[*].price.count()            # Number of books
+$.store.book[*].price.avg()              # Average book price
+$.products[?(@.category == 'electronics')].price.sum()  # Total price of electronics
+```
+
+**Note:** Aggregate functions require the JSONPath expression to return an array of numeric values. String numbers will be automatically converted to numbers.
+
 ## Usage
 
 1. Make an API request that returns JSON data
 2. Below the response body, click the filter icon
-3. Enter a JSONPath expression
+3. Enter a JSONPath expression (optionally with an aggregate function)
 4. View the extracted data in the results panel
